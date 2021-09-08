@@ -2,9 +2,7 @@
 
 cat>./target/linux/ramips/dts/mt7621_zte_e8820v2.dts<<EOF
 /dts-v1/;
-
 #include "mt7621.dtsi"
-
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/input/input.h>
 
@@ -18,8 +16,7 @@ cat>./target/linux/ramips/dts/mt7621_zte_e8820v2.dts<<EOF
         led-running = &led_sys;
         led-upgrade = &led_sys;
     };
-
-    chosen {
+chosen {
         bootargs = "console=ttyS0,115200";
     };
 
@@ -28,27 +25,28 @@ cat>./target/linux/ramips/dts/mt7621_zte_e8820v2.dts<<EOF
 
         led_sys:sys {
             label = "e8820v2:white:sys";
-            gpios = <&gpio 29 GPIO_ACTIVE_LOW>;
+            gpios = <&gpio0 29 GPIO_ACTIVE_LOW>;
         };   
 
         led_power:power {
             label = "e8820v2:white:power";
-            gpios = <&gpio 31 GPIO_ACTIVE_LOW>;            
+            gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;            
         };
     };
 
     keys {
-        compatible = "gpio-keys";
+        compatible = "gpio-keys-polled";
+        poll-interval = <20>;
 
         reset {
             label = "reset";
-            gpios = <&gpio 18 GPIO_ACTIVE_LOW>;
+            gpios = <&gpio0 18 GPIO_ACTIVE_LOW>;
             linux,code = <KEY_RESTART>;
         };
 
         wps {
             label = "wps";
-            gpios = <&gpio 24 GPIO_ACTIVE_LOW>;
+            gpios = <&gpio0 24 GPIO_ACTIVE_LOW>;
             linux,code = <KEY_WPS_BUTTON>;
         };
     };
@@ -94,7 +92,6 @@ cat>./target/linux/ramips/dts/mt7621_zte_e8820v2.dts<<EOF
     };
 };
 
-
 &pcie {
     status = "okay";
 };
@@ -124,46 +121,15 @@ cat>./target/linux/ramips/dts/mt7621_zte_e8820v2.dts<<EOF
 
     };
 };
-
-
-&gmac0 {
-    mtd-mac-address = <&factory 0xe000>;
+&#240;ernet {
+        mtd-mac-address = <&factory 0xe000>;
 };
-
-&switch0 {
-    ports {
-        port@4 {
-            status = "okay";
-            label = "wan";
-            mtd-mac-address = <&factory 0xe006>;
+&pinctrl {
+   state_default: pinctrl0 {
+        gpio {
+            ralink,group = "i2c", "uart2", "uart3", "wdt";
+            ralink,function = "gpio";
         };
-
-        port@0 {
-            status = "okay";
-            label = "lan1";
-        };
-
-        port@1 {
-            status = "okay";
-            label = "lan2";
-        };
-
-        port@2 {
-            status = "okay";
-            label = "lan3";
-        };
-
-        port@3 {
-            status = "okay";
-            label = "lan4";
-        };
-    };
-};
-
-&state_default {
-    gpio {
-        groups = "i2c", "uart2", "uart3", "wdt";
-        function = "gpio";
     };
 };
 EOF
@@ -179,11 +145,13 @@ esac/g' ./target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
 
 #增加驱动
 sed -i '$ a\\ndefine Device/zte_e8820v2\
+  MTK_SOC := mt7621\
   IMAGE_SIZE := 16064k\
   DEVICE_VENDOR := ZTE\
   DEVICE_MODEL := E8820V2\
+  DEVICE_VARIANT := 16M\
   DEVICE_PACKAGES := \\\
-    kmod-mt7603 kmod-mt76x2 kmod-usb3 kmod-usb-ledtrig-usbport wpad luci\
+    kmod-mt7603 kmod-mt76x2 kmod-usb3 kmod-usb-ledtrig-usbport wpad hostapd-utils luci\
 endef\
 TARGET_DEVICES += zte_e8820v2' ./target/linux/ramips/image/mt7621.mk
 
