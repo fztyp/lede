@@ -121,7 +121,7 @@ chosen {
 
     };
 };
-&#240;ernet {
+&ethernet {
         mtd-mac-address = <&factory 0xe000>;
 };
 &pinctrl {
