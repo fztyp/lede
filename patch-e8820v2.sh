@@ -25,12 +25,12 @@ chosen {
 
         led_sys:sys {
             label = "e8820v2:white:sys";
-            gpios = <&gpio0 29 GPIO_ACTIVE_LOW>;
+            gpios = <&gpio 29 GPIO_ACTIVE_LOW>;
         };   
 
         led_power:power {
             label = "e8820v2:white:power";
-            gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;            
+            gpios = <&gpio 31 GPIO_ACTIVE_LOW>;            
         };
     };
 
@@ -40,13 +40,13 @@ chosen {
 
         reset {
             label = "reset";
-            gpios = <&gpio0 18 GPIO_ACTIVE_LOW>;
+            gpios = <&gpio 18 GPIO_ACTIVE_LOW>;
             linux,code = <KEY_RESTART>;
         };
 
         wps {
             label = "wps";
-            gpios = <&gpio0 24 GPIO_ACTIVE_LOW>;
+            gpios = <&gpio 24 GPIO_ACTIVE_LOW>;
             linux,code = <KEY_WPS_BUTTON>;
         };
     };
