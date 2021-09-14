@@ -138,16 +138,9 @@ EOF
 sed -i 's/^esac/zte,e8820v2)\
 	ucidef_set_led_netdev "sys" "SYS_LED" "$boardname:white:sys" "eth0" "tx rx"\
 	ucidef_set_led_default "power" "POWER_LED" "$boardname:white:power" "1"\
-	ucidef_set_led_netdev "wlan2g" "WiFi 2.4GHz" "$boardname:white:wlan2g" "ra0"\
-	ucidef_set_led_netdev "wlan5g" "WiFi 5GHz" "$boardname:white:wlan5g" "rai0"\
 	;;\
 esac/g' ./target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
 
-sed -i 's/*)/zte,e8820v2)\
-		ucidef_set_interfaces_lan_wan "eth0.1" "eth0.2"\
-		ucidef_add_switch "switch0" "1" "1" "0:lan:1" "1:lan:1" "2:lan:1" "3:lan:1" "4:wan:2" "6t@eth0"\
-		;;\
-	*)/g' ./target/linux/ramips/mt7621/base-files/etc/board.d/02_network
 	
 
 #增加驱动
