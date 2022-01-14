@@ -27,6 +27,7 @@ env:
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   PATCH_SH: patch-e8820v2.sh
+  TM_NAME: e8820v2
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: true
@@ -74,10 +75,11 @@ jobs:
 
     - name: Patch Script
       run: |
-        chmod +x $PATCH_SH
+        # chmod +x $PATCH_SH
         cd openwrt
-        cp -fp $GITHUB_WORKSPACE/e8820v2/mt7621_zte_e8820v2.dts ./target/linux/ramips/dts/
-        $GITHUB_WORKSPACE/e8820v2/$PATCH_SH
+        cp -fp $GITHUB_WORKSPACE/$TM_NAME/mt7621_zte_e8820v2.dts ./target/linux/ramips/dts/mt7621_zte_e8820v2.dts
+        cp -fp $GITHUB_WORKSPACE/$TM_NAME/mt7621.mk ./target/linux/ramips/image/mt7621.mk
+        cp -fp $GITHUB_WORKSPACE/$TM_NAME/01_leds ./target/linux/ramips/image/01_leds
         
     - name: Load custom configuration
       run: |
