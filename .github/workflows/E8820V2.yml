@@ -77,9 +77,9 @@ jobs:
       run: |
         # chmod +x $PATCH_SH
         cd openwrt
-        cp -fp $GITHUB_WORKSPACE/$TM_NAME/mt7621_zte_e8820v2.dts ./target/linux/ramips/dts/mt7621_zte_e8820v2.dts
-        cp -fp $GITHUB_WORKSPACE/$TM_NAME/mt7621.mk ./target/linux/ramips/image/mt7621.mk
-        cp -fp $GITHUB_WORKSPACE/$TM_NAME/01_leds ./target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
+        cp -f $GITHUB_WORKSPACE/$TM_NAME/mt7621_zte_e8820v2.dts ./target/linux/ramips/dts/mt7621_zte_e8820v2.dts
+        cp -f $GITHUB_WORKSPACE/$TM_NAME/mt7621.mk ./target/linux/ramips/image/mt7621.mk
+        cp -f $GITHUB_WORKSPACE/$TM_NAME/01_leds ./target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
         
     - name: Load custom configuration
       run: |
