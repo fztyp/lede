@@ -76,7 +76,8 @@ jobs:
       run: |
         chmod +x $PATCH_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$PATCH_SH
+        cp -fp $GITHUB_WORKSPACE/e8820v2/mt7621_zte_e8820v2.dts ./target/linux/ramips/dts/
+        $GITHUB_WORKSPACE/e8820v2/$PATCH_SH
         
     - name: Load custom configuration
       run: |
